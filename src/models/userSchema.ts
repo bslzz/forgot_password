@@ -1,21 +1,26 @@
-import mongoose from 'mongoose'
+import { model, Schema } from 'mongoose'
+import { IUser } from '../@types'
 
-interface User {
-  name: string
-  id: string
-}
-
-const userSchema = new mongoose.Schema<User>({
+const userSchema: Schema = new Schema<IUser>({
   name: {
     type: 'string',
     required: true
   },
-  id: {
+  email: {
+    type: 'string',
+    unique: true,
+    required: true
+  },
+  password: {
     type: 'string',
     required: true
+  },
+  isUserVerified: {
+    type: 'boolean',
+    default: false
   }
 })
 
-const User = mongoose.model<User>('User', userSchema)
+const User = model<IUser>('User', userSchema)
 
 export default User

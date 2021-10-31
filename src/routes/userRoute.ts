@@ -1,9 +1,9 @@
 import express from 'express'
-import userController from '../controllers/userController'
-import { userControllerValidation } from '../validation/usersValidation/userValidation'
+import signUpUser from '../controllers/signUpUser.controller'
+import { signUpUserValidation } from '../validation/usersValidation/signUpUserValidation'
 
 const router = express.Router()
 
-router.route('/').post(userControllerValidation, userController)
+router.route('/signup').post(signUpUserValidation, signUpUser)
 
 export default router
