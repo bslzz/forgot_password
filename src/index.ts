@@ -3,6 +3,7 @@ import createHttpError from 'http-errors'
 import dotenv from 'dotenv'
 import CONNECT_DB from './config/db'
 import userRoute from './routes/userRoute'
+import sendVerificationEmailRoute from './routes/sendVerificationEmailRoute'
 import { errorHandler } from './middleware/errorHandler'
 
 dotenv.config()
@@ -16,6 +17,7 @@ CONNECT_DB()
 
 // routes
 app.use('/users', userRoute)
+app.use('/', sendVerificationEmailRoute)
 
 // errorhandler middleware
 app.use((req: Request, res: Response, next: NextFunction) => {

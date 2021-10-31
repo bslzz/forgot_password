@@ -15,9 +15,12 @@ const userSchema: Schema = new Schema<IUser>({
     type: 'string',
     required: true
   },
-  isUserVerified: {
+  isVerified: {
     type: 'boolean',
     default: false
+  },
+  verifyToken: {
+    type: 'string'
   }
 })
 
