@@ -4,10 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const authUser_controller_1 = require("../controllers/authUser.controller");
+const emailVerification_controller_1 = require("../controllers/emailVerification.controller");
 const userValidation_1 = require("../validation/usersValidation/userValidation");
 const router = express_1.default.Router();
-router.route('/signup').post(userValidation_1.signUpUserValidation, authUser_controller_1.signUpUser);
-router.route('/login').post(userValidation_1.signInUserValidation, authUser_controller_1.signInUser);
-router.route('/logout').get(authUser_controller_1.logOutUser);
+router
+    .route('/send_verification_email')
+    .post(userValidation_1.sendVerificationEmailValidation, emailVerification_controller_1.sendVerificationEmail);
+router.route('/verify_email').post(userValidation_1.verifyUserEmailValidation, emailVerification_controller_1.verifyUserEmail);
 exports.default = router;

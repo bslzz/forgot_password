@@ -2,7 +2,7 @@ import express from 'express'
 import {
   sendVerificationEmail,
   verifyUserEmail
-} from '../controllers/emailVerification'
+} from '../controllers/emailVerification.controller'
 import {
   sendVerificationEmailValidation,
   verifyUserEmailValidation

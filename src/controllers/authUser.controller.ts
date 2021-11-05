@@ -44,9 +44,9 @@ export const signInUser: RequestHandler = async (req, res, next) => {
       return next(createHttpError(401, 'Invalid email/password'))
     }
 
-    const token = await jwt.sign(
+    const token = jwt.sign(
       { name: user.name, email: user.email, userId: user._id },
-      process.env.JWT_KE!,
+      process.env.JWT_KEY!,
       { expiresIn: '7d' }
     )
 
@@ -54,6 +54,15 @@ export const signInUser: RequestHandler = async (req, res, next) => {
       httpOnly: true
     })
     res.status(200).json({ token })
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message })
+  }
+}
+
+export const logOutUser: RequestHandler = async (req, res, next) => {
+  try {
+    res.clearCookie('jwt')
+    res.status(200).json({ message: 'Logged out' })
   } catch (error: any) {
     return res.status(500).json({ error: error.message })
   }

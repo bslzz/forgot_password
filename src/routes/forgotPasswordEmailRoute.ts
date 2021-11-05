@@ -2,7 +2,7 @@ import express from 'express'
 import {
   sendForgotPasswordEmail,
   verifyNewPassword
-} from '../controllers/forgotPasswordEmail'
+} from '../controllers/forgotPasswordEmail.controller'
 import {
   sendForgotPasswordEmailValidation,
   verifyNewPasswordValidation

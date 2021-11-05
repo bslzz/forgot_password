@@ -19,8 +19,7 @@ exports.userSchema = {
         email: joi_1.default.string().email().required()
     }),
     verifyUserEmail: joi_1.default.object({
-        token: joi_1.default.string().required(),
-        password: joi_1.default.string().required()
+        token: joi_1.default.string().required()
     }),
     sendForgotPasswordEmail: joi_1.default.object({
         email: joi_1.default.string().email().required()

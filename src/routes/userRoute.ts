@@ -1,5 +1,9 @@
 import express from 'express'
-import { signInUser, signUpUser } from '../controllers/signUpUser.controller'
+import {
+  logOutUser,
+  signInUser,
+  signUpUser
+} from '../controllers/authUser.controller'
 import {
   signInUserValidation,
   signUpUserValidation
@@ -9,5 +13,6 @@ const router = express.Router()
 
 router.route('/signup').post(signUpUserValidation, signUpUser)
 router.route('/login').post(signInUserValidation, signInUser)
+router.route('/logout').get(logOutUser)
 
 export default router
