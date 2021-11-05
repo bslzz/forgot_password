@@ -28,9 +28,8 @@ export const sendVerificationEmail: RequestHandler = async (req, res, next) => {
       from: '"Fred Foo 👻" <foo@example.com>', // sender address
       to: email, // list of receivers
       subject: 'Email verification ✔', // Subject line
-      text: 'Hello world?', // plain text body
       html: `Your verification link is <a href = "${process.env
-        .FRONTEND_URL!}/forgot_password_verify/${jwtToken}"> Link </a>` // html body
+        .FRONTEND_URL!}/verify_email/${jwtToken}"> Link </a>` // html body
     })
 
     await User.updateOne({ $set: { verifyToken: hashedToken } })
@@ -41,5 +40,31 @@ export const sendVerificationEmail: RequestHandler = async (req, res, next) => {
   } catch (error) {
     console.log('sendVerificationEmail =>', error)
     return next(createHttpError.InternalServerError)
+  }
+}
+
+export const verifyUserEmail: RequestHandler = async (req, res, next) => {
+  const { token }: { token: string } = req.body
+  try {
+    const decodedToken: any = jwt.verify(token, process.env.JWT_KEY!)
+    if (!decodedToken) {
+      return next(createHttpError(401, 'Unauthorized'))
+    }
+
+    const user = await User.findById(decodedToken.userId)
+
+    if (!user) {
+      return next(createHttpError(401, 'Unauthorized'))
+    }
+
+    await user.updateOne({
+      $set: { isVerified: true },
+      $unset: { verifyToken: 0 }
+    })
+
+    res.json({ message: 'Email verified' })
+  } catch (error) {
+    console.log('verifyUserEmail =>', error)
+    return next(createHttpError(401, 'Invalid token'))
   }
 }

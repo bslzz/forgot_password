@@ -36,6 +36,9 @@ export const signInUser: RequestHandler = async (req, res, next) => {
     if (!user) {
       return next(createHttpError(404, 'User Not Found'))
     }
+    if (!user.isVerified) {
+      return next(createHttpError(406, 'User Not Verified'))
+    }
     const matchPassword = await bcrypt.compare(password, user.password)
 
     if (!matchPassword) {
