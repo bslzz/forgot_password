@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.auth = void 0;
+const http_errors_1 = __importDefault(require("http-errors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth = (req, res, next) => {
     var _a;
@@ -17,7 +18,7 @@ const auth = (req, res, next) => {
         next();
     }
     catch (error) {
-        res.status(401).json({ error: error.message });
+        return next(http_errors_1.default(401, error.message));
     }
 };
 exports.auth = auth;

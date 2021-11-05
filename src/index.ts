@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import express, { NextFunction, Request, Response } from 'express'
+import express from 'express'
 import createHttpError from 'http-errors'
 import cookieParser from 'cookie-parser'
 import CONNECT_DB from './config/db'
@@ -26,8 +26,8 @@ app.use('/', sendForgotPasswordEmailRoute)
 app.use('/customer', customerControllerRoute)
 
 // errorhandler middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
-  next(new createHttpError.NotFound())
+app.use(() => {
+  throw createHttpError(404, 'Page not found')
 })
 
 app.use(errorHandler)

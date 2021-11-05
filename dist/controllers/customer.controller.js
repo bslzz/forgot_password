@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllCustomersController = exports.createNewCustomerController = void 0;
+const http_errors_1 = __importDefault(require("http-errors"));
 const customerSchema_1 = __importDefault(require("../models/customerSchema"));
 const createNewCustomerController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.body;
@@ -25,7 +26,7 @@ const createNewCustomerController = (req, res, next) => __awaiter(void 0, void 0
         });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.createNewCustomerController = createNewCustomerController;
@@ -35,7 +36,7 @@ const getAllCustomersController = (req, res, next) => __awaiter(void 0, void 0, 
         res.status(200).json({ data: allCustomers });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.getAllCustomersController = getAllCustomersController;

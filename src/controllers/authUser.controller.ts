@@ -24,7 +24,7 @@ export const signUpUser: RequestHandler = async (req, res, next) => {
     await user.save()
     res.status(200).json({ message: 'new user registered' })
   } catch (error: any) {
-    return res.status(500).json({ error: error.message })
+    return next(createHttpError(500, error.message))
   }
 }
 
@@ -55,7 +55,7 @@ export const signInUser: RequestHandler = async (req, res, next) => {
     })
     res.status(200).json({ token })
   } catch (error: any) {
-    return res.status(500).json({ error: error.message })
+    return next(createHttpError(500, error.message))
   }
 }
 
@@ -64,6 +64,6 @@ export const logOutUser: RequestHandler = async (req, res, next) => {
     res.clearCookie('jwt')
     res.status(200).json({ message: 'Logged out' })
   } catch (error: any) {
-    return res.status(500).json({ error: error.message })
+    return next(createHttpError(500, error.message))
   }
 }

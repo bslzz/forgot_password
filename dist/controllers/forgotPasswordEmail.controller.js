@@ -41,7 +41,7 @@ const sendForgotPasswordEmail = (req, res, next) => __awaiter(void 0, void 0, vo
         });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.sendForgotPasswordEmail = sendForgotPasswordEmail;
@@ -64,7 +64,7 @@ const verifyNewPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         res.json({ message: 'Password changed' });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.verifyNewPassword = verifyNewPassword;

@@ -44,7 +44,7 @@ const sendVerificationEmail = (req, res, next) => __awaiter(void 0, void 0, void
         });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.sendVerificationEmail = sendVerificationEmail;
@@ -66,7 +66,7 @@ const verifyUserEmail = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         res.json({ message: 'Email verified' });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.verifyUserEmail = verifyUserEmail;

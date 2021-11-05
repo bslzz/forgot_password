@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express'
+import createHttpError from 'http-errors'
 import Customer from '../models/customerSchema'
 
 export const createNewCustomerController: RequestHandler = async (
@@ -15,7 +16,7 @@ export const createNewCustomerController: RequestHandler = async (
       data: newCustomer
     })
   } catch (error: any) {
-    return res.status(500).json({ error: error.message })
+    return next(createHttpError(500, error.message))
   }
 }
 export const getAllCustomersController: RequestHandler = async (
@@ -27,6 +28,6 @@ export const getAllCustomersController: RequestHandler = async (
     const allCustomers = await Customer.find()
     res.status(200).json({ data: allCustomers })
   } catch (error: any) {
-    return res.status(500).json({ error: error.message })
+    return next(createHttpError(500, error.message))
   }
 }

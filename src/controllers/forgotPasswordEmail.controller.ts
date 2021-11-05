@@ -39,7 +39,7 @@ export const sendForgotPasswordEmail: RequestHandler = async (
       message: `Preview URL: %s ${nodemailer.getTestMessageUrl(info)}`
     })
   } catch (error: any) {
-    return res.status(500).json({ error: error.message })
+    return next(createHttpError(500, error.message))
   }
 }
 
@@ -66,6 +66,6 @@ export const verifyNewPassword: RequestHandler = async (req, res, next) => {
 
     res.json({ message: 'Password changed' })
   } catch (error: any) {
-    return res.status(500).json({ error: error.message })
+    return next(createHttpError(500, error.message))
   }
 }

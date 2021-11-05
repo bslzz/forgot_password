@@ -12,6 +12,6 @@ export const auth: RequestHandler = (req: any, res, next) => {
     req.user = verifiedUser.userId
     next()
   } catch (error: any) {
-    res.status(401).json({ error: error.message })
+    return next(createHttpError(401, error.message))
   }
 }

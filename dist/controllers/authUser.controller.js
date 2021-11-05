@@ -34,7 +34,7 @@ const signUpUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         res.status(200).json({ message: 'new user registered' });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.signUpUser = signUpUser;
@@ -59,7 +59,7 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         res.status(200).json({ token });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.signInUser = signInUser;
@@ -69,7 +69,7 @@ const logOutUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         res.status(200).json({ message: 'Logged out' });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.logOutUser = logOutUser;
