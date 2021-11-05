@@ -26,7 +26,7 @@ app.use('/', emailVerificationRoute_1.default);
 app.use('/', forgotPasswordEmailRoute_1.default);
 app.use('/customer', customerRoute_1.default);
 // errorhandler middleware
-app.use((err, req, res, next) => {
+app.use((req, res, next) => {
     next(new http_errors_1.default.NotFound());
 });
 app.use(errorHandler_1.errorHandler);
