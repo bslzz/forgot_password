@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express'
-import createHttpError from 'http-errors'
+import createHttpError, { HttpError } from 'http-errors'
 import dotenv from 'dotenv'
 import CONNECT_DB from './config/db'
 import userRoute from './routes/userRoute'
@@ -22,7 +22,7 @@ app.use('/', sendVerificationEmailRoute)
 app.use('/', sendForgotPasswordEmail)
 
 // errorhandler middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
   next(new createHttpError.NotFound())
 })
 

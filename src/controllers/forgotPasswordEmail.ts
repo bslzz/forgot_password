@@ -38,9 +38,8 @@ export const sendForgotPasswordEmail: RequestHandler = async (
     res.json({
       message: `Preview URL: %s ${nodemailer.getTestMessageUrl(info)}`
     })
-  } catch (error) {
-    console.log('sendForgotPasswordEmail =>', error)
-    return next(createHttpError.InternalServerError)
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message })
   }
 }
 
@@ -66,8 +65,7 @@ export const verifyNewPassword: RequestHandler = async (req, res, next) => {
     })
 
     res.json({ message: 'Password changed' })
-  } catch (error) {
-    console.log('verifyNewPassword =>', error)
-    return next(createHttpError(401, 'Invalid token'))
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message })
   }
 }

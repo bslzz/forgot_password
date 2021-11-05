@@ -23,9 +23,8 @@ export const signUpUser: RequestHandler = async (req, res, next) => {
 
     await user.save()
     res.status(200).json({ message: 'new user registered' })
-  } catch (error) {
-    console.log('signUpError =>', error)
-    return next(createHttpError.InternalServerError)
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message })
   }
 }
 
@@ -47,14 +46,15 @@ export const signInUser: RequestHandler = async (req, res, next) => {
 
     const token = await jwt.sign(
       { name: user.name, email: user.email, userId: user._id },
-      process.env.JWT_KEY!,
+      process.env.JWT_KE!,
       { expiresIn: '7d' }
     )
 
-    res.cookie('jwt', token)
+    res.cookie('jwt', token, {
+      httpOnly: true
+    })
     res.status(200).json({ token })
-  } catch (error) {
-    console.log('signInError =>', error)
-    return next(createHttpError.InternalServerError)
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message })
   }
 }

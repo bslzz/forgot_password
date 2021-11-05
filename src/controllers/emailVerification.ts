@@ -37,9 +37,8 @@ export const sendVerificationEmail: RequestHandler = async (req, res, next) => {
     res.json({
       message: `Preview URL: %s ${nodemailer.getTestMessageUrl(info)}`
     })
-  } catch (error) {
-    console.log('sendVerificationEmail =>', error)
-    return next(createHttpError.InternalServerError)
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message })
   }
 }
 
@@ -63,8 +62,7 @@ export const verifyUserEmail: RequestHandler = async (req, res, next) => {
     })
 
     res.json({ message: 'Email verified' })
-  } catch (error) {
-    console.log('verifyUserEmail =>', error)
-    return next(createHttpError(401, 'Invalid token'))
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message })
   }
 }

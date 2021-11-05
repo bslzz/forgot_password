@@ -14,8 +14,7 @@ export const userSchema = {
     email: Joi.string().email().required()
   }),
   verifyUserEmail: Joi.object({
-    token: Joi.string().required(),
-    password: Joi.string().required()
+    token: Joi.string().required()
   }),
   sendForgotPasswordEmail: Joi.object({
     email: Joi.string().email().required()
