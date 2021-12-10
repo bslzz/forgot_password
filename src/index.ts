@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express'
+import cors from 'cors'
 import createHttpError from 'http-errors'
 import cookieParser from 'cookie-parser'
 import CONNECT_DB from './config/db'
@@ -15,6 +16,7 @@ const app = express()
 // middleware
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
 
 // connect db
 CONNECT_DB()
