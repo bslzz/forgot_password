@@ -24,7 +24,7 @@ const sendForgotPasswordEmail = (req, res, next) => __awaiter(void 0, void 0, vo
     try {
         const user = yield userSchema_1.default.findOne({ email });
         if (!user) {
-            return next(http_errors_1.default(404, 'Invalid Email'));
+            return next((0, http_errors_1.default)(404, 'Invalid Email'));
         }
         const hashedToken = yield bcryptjs_1.default.hash(user._id.toString(), 10);
         const jwtToken = yield jsonwebtoken_1.default.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: '60m' });
@@ -41,7 +41,7 @@ const sendForgotPasswordEmail = (req, res, next) => __awaiter(void 0, void 0, vo
         });
     }
     catch (error) {
-        return next(http_errors_1.default(500, error.message));
+        return next((0, http_errors_1.default)(500, error.message));
     }
 });
 exports.sendForgotPasswordEmail = sendForgotPasswordEmail;
@@ -50,11 +50,11 @@ const verifyNewPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     try {
         const decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY);
         if (!decodedToken) {
-            return next(http_errors_1.default(401, 'Unauthorized'));
+            return next((0, http_errors_1.default)(401, 'Unauthorized'));
         }
         const user = yield userSchema_1.default.findById(decodedToken.userId);
         if (!user) {
-            return next(http_errors_1.default(401, 'Unauthorized'));
+            return next((0, http_errors_1.default)(401, 'Unauthorized'));
         }
         const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
         yield user.updateOne({
@@ -64,7 +64,7 @@ const verifyNewPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         res.json({ message: 'Password changed' });
     }
     catch (error) {
-        return next(http_errors_1.default(500, error.message));
+        return next((0, http_errors_1.default)(500, error.message));
     }
 });
 exports.verifyNewPassword = verifyNewPassword;

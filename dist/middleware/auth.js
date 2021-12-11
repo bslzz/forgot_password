@@ -18,7 +18,7 @@ const auth = (req, res, next) => {
         next();
     }
     catch (error) {
-        return next(http_errors_1.default(401, error.message));
+        return next((0, http_errors_1.default)(401, error.message));
     }
 };
 exports.auth = auth;

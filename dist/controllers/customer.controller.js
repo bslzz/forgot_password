@@ -26,7 +26,7 @@ const createNewCustomerController = (req, res, next) => __awaiter(void 0, void 0
         });
     }
     catch (error) {
-        return next(http_errors_1.default(500, error.message));
+        return next((0, http_errors_1.default)(500, error.message));
     }
 });
 exports.createNewCustomerController = createNewCustomerController;
@@ -36,7 +36,7 @@ const getAllCustomersController = (req, res, next) => __awaiter(void 0, void 0, 
         res.status(200).json({ data: allCustomers });
     }
     catch (error) {
-        return next(http_errors_1.default(500, error.message));
+        return next((0, http_errors_1.default)(500, error.message));
     }
 });
 exports.getAllCustomersController = getAllCustomersController;
