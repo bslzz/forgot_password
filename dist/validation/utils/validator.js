@@ -17,7 +17,7 @@ const validator = (schemaName, body, next) => __awaiter(void 0, void 0, void 0, 
     const value = yield schemaName.validate(body);
     try {
         value.error
-            ? next((0, http_errors_1.default)(422, value.error.details[0].message))
+            ? next(http_errors_1.default(422, value.error.details[0].message))
             : next();
     }
     catch (error) {

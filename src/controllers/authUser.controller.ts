@@ -53,7 +53,7 @@ export const signInUser: RequestHandler = async (req, res, next) => {
     res.cookie('jwt', token, {
       httpOnly: true
     })
-    res.status(200).json({ token })
+    res.status(200).json({ token, name: user.name })
   } catch (error: any) {
     return next(createHttpError(500, error.message))
   }

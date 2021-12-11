@@ -24,10 +24,10 @@ const sendVerificationEmail = (req, res, next) => __awaiter(void 0, void 0, void
     try {
         const user = yield userSchema_1.default.findOne({ email });
         if (!user) {
-            return next((0, http_errors_1.default)(404, 'Invalid Email'));
+            return next(http_errors_1.default(404, 'Invalid Email'));
         }
         if (user.isVerified) {
-            return next((0, http_errors_1.default)(406, 'User already verified'));
+            return next(http_errors_1.default(406, 'User already verified'));
         }
         const hashedToken = yield bcryptjs_1.default.hash(user._id.toString(), 10);
         const jwtToken = yield jsonwebtoken_1.default.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: '60m' });
@@ -44,7 +44,7 @@ const sendVerificationEmail = (req, res, next) => __awaiter(void 0, void 0, void
         });
     }
     catch (error) {
-        return next((0, http_errors_1.default)(500, error.message));
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.sendVerificationEmail = sendVerificationEmail;
@@ -53,11 +53,11 @@ const verifyUserEmail = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     try {
         const decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY);
         if (!decodedToken) {
-            return next((0, http_errors_1.default)(401, 'Unauthorized'));
+            return next(http_errors_1.default(401, 'Unauthorized'));
         }
         const user = yield userSchema_1.default.findById(decodedToken.userId);
         if (!user) {
-            return next((0, http_errors_1.default)(401, 'Unauthorized'));
+            return next(http_errors_1.default(401, 'Unauthorized'));
         }
         yield user.updateOne({
             $set: { isVerified: true },
@@ -66,7 +66,7 @@ const verifyUserEmail = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         res.json({ message: 'Email verified' });
     }
     catch (error) {
-        return next((0, http_errors_1.default)(500, error.message));
+        return next(http_errors_1.default(500, error.message));
     }
 });
 exports.verifyUserEmail = verifyUserEmail;

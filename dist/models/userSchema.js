@@ -23,5 +23,5 @@ const userSchema = new mongoose_1.Schema({
         type: 'string'
     }
 });
-const User = (0, mongoose_1.model)('User', userSchema);
+const User = mongoose_1.model('User', userSchema);
 exports.default = User;

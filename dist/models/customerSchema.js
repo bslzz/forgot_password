@@ -7,5 +7,5 @@ const userSchema = new mongoose_1.Schema({
         required: true
     }
 });
-const Customer = (0, mongoose_1.model)('Customer', userSchema);
+const Customer = mongoose_1.model('Customer', userSchema);
 exports.default = Customer;
